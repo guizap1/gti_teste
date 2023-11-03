@@ -1,0 +1,160 @@
+ <div class = "row">
+    <div class="col-md-12 p-5">
+        <button class="btn btn-primary btn-md" (click)="showCadastro = true">Novo Cadastro</button>
+    </div>
+    <div *ngIf="showCadastro" class = "col-md-6 p-5">
+        <h3> Detalhes cliente formulario</h3>
+        <div class ="outerDiv">
+           
+                <!-- Outros campos de entrada... -->
+              
+                <div class="row">
+                  <div class="col-md-2">
+                    <label>Tipo</label>
+                  </div>
+                  <div class="col-md-2">
+                    <select [(ngModel)]="cadastroObj.tipoCliente" class="form-select-sm" required>
+                      <option>Fisica</option>
+                      <option>Juridica</option>
+                    </select>
+                  </div>
+                </div>
+              
+                <div class="row">
+                  <div class="col-md-2">
+                    <label>CPF/CNPJ</label>
+                  </div>
+                  <div class="col-md-3">
+                    <input type="number" [(ngModel)]="cadastroObj.documento" class="form-control" required pattern="[0-9]{11}" />
+                    <div *ngIf="cadastroObj.documento.toString().length !== 11" class="text-warning">
+                      O campo CPF/CNPJ deve ter 11 dígitos.
+                    </div>
+                  </div>
+                </div>
+              
+                <!-- Outros campos de entrada... -->
+              
+              
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>Nome</label>
+                </div>
+
+                <div class ="col-md-6">
+                    <input type="text" placeholder="Digite seu nome" pattern="[A-Za-zÀ-ú\s]+" [(ngModel)]="cadastroObj.nomeRazaoSocial" class="form-control" />
+                </div>
+            </div>
+
+            <div *ngIf="cadastroObj.tipoCliente === 'Juridica'" class = "row"> 
+                <div class ="col-md-2">
+                    <label>Nome Fantasia</label>
+                </div>
+
+                <div class ="col-md-6">
+                    <div class ="col-md-7">
+                        <input type = "text" [(ngModel)]="cadastroObj.nomeFantasia" class = "form-control"/> 
+                    </div>
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>CEP</label>
+                </div>
+
+                <div class ="col-md-2">
+                    <input (blur)="consultaCep(cadastroObj.cep)" type = "number" [(ngModel)]="cadastroObj.cep" class = "form-control"/> 
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>Endereco</label>
+                </div>
+
+                <div class ="col-md-6">
+                    <input type = "text" [(ngModel)]="cadastroObj.endereco" class = "form-control"/> 
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>Bairro</label>
+                </div>
+
+                <div class ="col-md-6">
+                    <input type = "text" [(ngModel)]="cadastroObj.bairro" class = "form-control"/> 
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>Cidade</label>
+                </div>
+
+                <div class ="col-md-6">
+                    <input type = "text" [(ngModel)]="cadastroObj.cidade" class = "form-control"/> 
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>Telefone</label>
+                </div>
+
+                <div class ="col-md-3">
+                    <input type = "number" [(ngModel)]="cadastroObj.telefone" class = "form-control"/> 
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="col-md-2">
+                    <label>E-mail</label>
+                </div>
+
+                <div class ="col-md-6">
+                    <input type = "email" placeholder="Digite seu email" [(ngModel)]="cadastroObj.email" class = "form-control"/> 
+                </div>
+            </div>
+
+            <div class = "row"> 
+                <div class ="text-end">
+                    <button (click)="cancelaCadastro()" class = "btn btn-danger btn-sm"> Cancelar</button>
+                    <button type="submit" (click)="SalvarCliente()" class = "btn btn-success btn-sm mx-2"> Salvar</button>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+    <div *ngIf="!showCadastro" class="col-md-12 p-5">
+        <h3> Lista Clientes</h3>    
+        <div class = "outerDiv">
+            <div class="row">
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Nome</th>
+                                <th>Endereco</th>
+                                <th>E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let cadastro of cadastroList">
+                            <tr>
+                                <td><span>{{cadastro.id}}</span></td>
+                                <td><span>{{cadastro.nomeRazaoSocial}}</span></td>
+                                <td><span>{{cadastro.endereco}} - {{cadastro.bairro}} - {{cadastro.cidade}}</span></td>
+                                <td><span>{{cadastro.email}}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>
